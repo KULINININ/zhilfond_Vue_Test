@@ -7,7 +7,7 @@
       <img src="https://via.placeholder.com/200/92c952" alt="user" />
     </div>
     <div class="user-card-mini__info col-span-2 p-4">
-      <div class="user-card-mini__name font-bold">{{ name }}</div>
+      <div class="user-card-mini__name font-bold">{{ username }}</div>
       <div class="user-card-email text-gray-500">{{ email }}</div>
     </div>
   </div>
@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 const props = defineProps({
-  name: {
+  username: {
     type: String,
     required: true
   },
