@@ -24,15 +24,15 @@
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 
-import UserCardFull from '../components/UserCardFull.vue'
-import UserCardFullSkeleton from '../components/Skeletons/UserCardFullSkeleton.vue'
-import LoadingIcon from '../assets/icons/LoadingIcon.vue'
-import SearchCard from '../components/SearchCard.vue'
+import UserCardFull from '@/components/UserCardFull.vue'
+import UserCardFullSkeleton from '@/components/Skeletons/UserCardFullSkeleton.vue'
+import LoadingIcon from '@/assets/icons/LoadingIcon.vue'
+import SearchCard from '@/components/SearchCard.vue'
 
 const store = useStore()
 
-const getUsers = () => store.dispatch('getUsers')
-getUsers()
+// const getUsers = () => store.dispatch('getUsers')
+// getUsers()
 
 const selectedUser = computed(() => store.getters.selectedUser)
 const userDataLoading = computed(() => store.getters.userDataLoading)

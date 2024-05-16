@@ -11,5 +11,5 @@
 </template>
 
 <script setup lang="ts">
-import UserEmploeesView from '../views/UserEmploeesView.vue'
+import UserEmploeesView from '@/views/UserEmploeesView.vue'
 </script>

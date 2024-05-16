@@ -1,4 +1,4 @@
-import { Company } from '@types/company.ts'
+import { Company } from '@/types/company'
 
 interface Address {
   readonly city: string
