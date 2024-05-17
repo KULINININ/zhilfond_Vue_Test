@@ -3,6 +3,10 @@ import { createStore, Store } from 'vuex'
 import { fetchUsersByPage, fetchUsersById, fetchUsersByParams } from '@/api/api'
 import { User } from '@/types/user'
 
+import { createToaster } from '@meforma/vue-toaster'
+
+const toaster = createToaster({})
+
 interface RootState {
   users: User[]
   selectedUser?: User
@@ -58,26 +62,39 @@ const store = createStore<RootState>({
       const idsString: string = payload.ids.join('&id=')
       const usernamesString: string = payload.usernames.join('&username=')
 
-      while (validResponse) {
-        const fetchedUsers: User[] = await fetchUsersByParams(
-          { ids: '&id=' + idsString, usernames: '&id=' + usernamesString },
-          page
-        )
-        if (fetchedUsers.length > 0) {
-          this.state.users.push(...fetchedUsers)
-          page++
-          this.state.allUsersLoading = false
-        } else {
-          validResponse = false
-          this.state.allUsersLoading = false
+      try {
+        while (validResponse) {
+          const fetchedUsers: User[] = await fetchUsersByParams(
+            { ids: '&id=' + idsString, usernames: '&id=' + usernamesString },
+            page
+          )
+          if (fetchedUsers.length > 0) {
+            this.state.users.push(...fetchedUsers)
+            page++
+            this.state.allUsersLoading = false
+          } else {
+            validResponse = false
+            this.state.allUsersLoading = false
+          }
         }
+      } catch (exception) {
+        toaster.error('Error while fetching users')
+        console.log(exception)
+        this.state.allUsersLoading = false
       }
       console.log(this.state.users)
     },
     async getUsersById(context: any, payload: { id: number }): Promise<void> {
       this.state.userDataLoading = true
-      const fetchedUser: User = await fetchUsersById(payload.id)
-      this.state.selectedUser = fetchedUser
+
+      try {
+        const fetchedUser: User = await fetchUsersById(payload.id)
+        this.state.selectedUser = fetchedUser
+      } catch (exception) {
+        toaster.error('Error while fetching user data')
+        console.log(exception)
+      }
+
       this.state.userDataLoading = false
     }
   }
