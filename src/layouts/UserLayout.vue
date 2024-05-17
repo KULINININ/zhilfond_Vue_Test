@@ -1,10 +1,10 @@
 <template>
-  <div class="user-layout container mx-auto my-10 space-y-10">
+  <div class="user-layout container mx-auto my-10 space-y-10 h-screen">
     <div class="user-layout__header flex inline justify-between">
       <div class="user-layout__header-logo font-bold text-3xl text-[#E31F24]">Жилфонд</div>
       <div class="user-layout__header-user text-[#6d6d6d]">Пользователь</div>
     </div>
-    <div class="user-layout__content">
+    <div class="user-layout__content h-full h-4/5">
       <UserEmploeesView />
     </div>
   </div>
