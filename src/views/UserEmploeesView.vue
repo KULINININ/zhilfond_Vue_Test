@@ -33,11 +33,13 @@ import UserCardFullSkeleton from '@/components/Skeletons/UserCardFullSkeleton.vu
 import LoadingIcon from '@/assets/icons/LoadingIcon.vue'
 import SearchCard from '@/components/SearchCard.vue'
 
+import type { User } from '@/types/user.ts'
+
 const store = useStore()
 
 // const getUsers = () => store.dispatch('getUsers')
 // getUsers()
 
-const selectedUser = computed(() => store.getters.selectedUser)
+const selectedUser = computed<User>(() => store.getters.selectedUser)
 const userDataLoading = computed(() => store.getters.userDataLoading)
 </script>

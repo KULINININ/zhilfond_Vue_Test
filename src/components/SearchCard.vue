@@ -67,7 +67,7 @@ const search = ref('')
 
 const users = computed(() => store.getters.users)
 
-const selectedUser: User = computed(() => store.getters.selectedUser)
+const selectedUser = computed<User>(() => store.getters.selectedUser)
 const allUsersLoading = computed(() => store.getters.allUsersLoading)
 
 const doSelectUser = (user) => {

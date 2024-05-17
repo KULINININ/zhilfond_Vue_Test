@@ -5,7 +5,7 @@ import { User } from '@/types/user'
 
 interface RootState {
   users: User[]
-  selectedUser: User
+  selectedUser?: User
   allUsersLoading: boolean
   userDataLoading: boolean
 }
@@ -13,17 +13,17 @@ interface RootState {
 const store = createStore<RootState>({
   state() {
     return {
-      users: [] as User[],
-      selectedUser: undefined as User,
-      allUsersLoading: false as boolean,
-      userDataLoading: false as boolean
+      users: [],
+      selectedUser: undefined,
+      allUsersLoading: false,
+      userDataLoading: false
     }
   },
   getters: {
-    users: (state: RootState) => state.users as User[],
-    selectedUser: (state: RootState) => state.selectedUser as User,
-    allUsersLoading: (state: RootState) => state.allUsersLoading as boolean,
-    userDataLoading: (state: RootState) => state.userDataLoading as boolean
+    users: (state: RootState) => state.users,
+    selectedUser: (state: RootState) => state.selectedUser,
+    allUsersLoading: (state: RootState) => state.allUsersLoading,
+    userDataLoading: (state: RootState) => state.userDataLoading
   },
   mutations: {},
   actions: {
