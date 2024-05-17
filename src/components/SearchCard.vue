@@ -1,10 +1,9 @@
 <template>
-  <div class="search-card space-y-4">
-    <div class="search-card__header font-bold text-[#333333]">Поиск сотрудника</div>
-    <BaseSearch v-model:value="search" />
-    <div>{{ search }}</div>
-    <div class="search-card__result font-bold text-[#333333]">Результаты</div>
-    <div class="search-card__users space-y-4" v-if="!allUsersLoading">
+  <div class="search-card">
+    <div class="search-card__header">Поиск сотрудника</div>
+    <BaseSearch class="search-card__input" v-model:value="search" />
+    <div class="search-card__result">Результаты</div>
+    <div class="search-card__users" v-if="!allUsersLoading">
       <UserCardMini
         v-for="user in users"
         :key="user.id"
@@ -14,14 +13,9 @@
         @click="doSelectUser(user)"
       />
     </div>
-    <div
-      class="search-card__users__loading-skeleton space-y-4 flex flex-col items-center relative"
-      v-for="i in 3"
-      :key="i"
-      v-else
-    >
+    <div class="search-card__users__loading-skeleton" v-for="i in 3" :key="i" v-else>
       <UserCardMiniSkeleton />
-      <div class="search-card__users__loading-loader absolute z-10">
+      <div class="search-card__users__loading-loader">
         <LoadingIcon />
       </div>
     </div>
@@ -78,3 +72,54 @@ watch(search, (value) => {
   debouncedUsersFilter(value)
 })
 </script>
+
+<style scoped lang="scss">
+@mixin space-y-4 {
+  > * {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  > *:first-child {
+    margin-top: 0;
+  }
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.search-card {
+  @include space-y-4;
+
+  &__header {
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  &__result {
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  &__users {
+    @include space-y-4;
+
+    &__loading {
+      &-skeleton {
+        // @include space-y-4;
+
+        align-items: center;
+        flex-direction: column;
+        display: flex;
+        position: relative;
+      }
+
+      &-loader {
+        position: absolute;
+        z-index: 10;
+      }
+    }
+  }
+}
+</style>
