@@ -8,7 +8,7 @@
       <UserCardMini
         v-for="user in users"
         :key="user.id"
-        :name="user.name"
+        :username="user.username"
         :email="user.email"
         :active="user.id === selectedUser?.id"
         @click="doSelectUser(user)"
@@ -21,7 +21,7 @@
       v-else
     >
       <UserCardMiniSkeleton />
-      <div class="search-card__users__loading-loader absolute top-1/4 left-1/2 z-10">
+      <div class="search-card__users__loading-loader absolute z-10">
         <LoadingIcon />
       </div>
     </div>
@@ -29,42 +29,52 @@
 </template>
 
 <script setup lang="ts">
-import UserCardMini from './UserCardMini.vue'
-import UserCardMiniSkeleton from './Skeletons/UserCardMiniSkeleton.vue'
-import BaseSearch from '../components/Base/BaseSearch.vue'
-import LoadingIcon from '../assets/icons/LoadingIcon.vue'
+import UserCardMini from '@/components/UserCardMini.vue'
+import UserCardMiniSkeleton from '@/components/Skeletons/UserCardMiniSkeleton.vue'
+import BaseSearch from '@/components/Base/BaseSearch.vue'
+import LoadingIcon from '@/assets/icons/LoadingIcon.vue'
 
 import { useStore } from 'vuex'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { debounce } from 'lodash'
 
-import type { User } from '@types/user.ts'
+import type { User } from '@/types/user.ts'
 
-// const debouncedUsersFilter = debounce((searchString) => {
-//   const params = searchString.split(',')
-//   console.log('params', params)
-//   // store.dispatch('getUsersByParams', { name: filterParams })
-//   // console.log('filterParams', { name: filterParams })
-// }, 500)
+const debouncedUsersFilter = debounce((searchString) => {
+  const ids: number[] = []
+  const usernames: string[] = []
+
+  searchString.split(',').forEach((param) => {
+    const trimmedParam: string = param.trim()
+    if (isNaN(Number(trimmedParam))) {
+      usernames.push(trimmedParam)
+    } else {
+      ids.push(Number(trimmedParam))
+    }
+  })
+
+  const resultObject = {
+    ids: ids,
+    usernames: usernames
+  }
+  // console.log('params', resultObject)
+  store.dispatch('getUsersByParams', { ids: ids, usernames: usernames })
+}, 500)
 
 const store = useStore()
 
 const search = ref('')
 
-const users = computed<User[]>(() => {
-  const searchString = search.value.toLowerCase()
-  return store.getters.users.filter((user: User) => {
-    return (
-      user.name.toLowerCase().includes(searchString) ||
-      user.email.toLowerCase().includes(searchString)
-    )
-  })
-})
+const users = computed(() => store.getters.users)
 
-const selectedUser = computed(() => store.getters.selectedUser)
+const selectedUser: User = computed(() => store.getters.selectedUser)
 const allUsersLoading = computed(() => store.getters.allUsersLoading)
 
 const doSelectUser = (user) => {
   store.dispatch('getUsersById', { id: user.id })
 }
+
+watch(search, (value) => {
+  debouncedUsersFilter(value)
+})
 </script>
