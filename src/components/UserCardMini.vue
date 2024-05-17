@@ -1,6 +1,6 @@
 <template>
   <div
-    class="user-card-mini grid grid-cols-3 rounded-lg shadow-[0px_0px_6px_0px_rgba(0,0,0,0.1)] cursor-pointer"
+    class="user-card-mini grid grid-cols-3 rounded-lg shadow-[0px_0px_6px_0px_rgba(0,0,0,0.1)] cursor-pointer truncate"
     :class="active ? 'bg-[#f5f5f5]' : ''"
   >
     <div class="user-card-mini__image col-span-1 p-4 border-r-2 border-gray-200">
