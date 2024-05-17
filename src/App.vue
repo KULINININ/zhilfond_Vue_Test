@@ -10,8 +10,8 @@ import UserLayout from '@layouts/UserLayout.vue'
 
 <style scoped lang="scss">
 .app-wrapper {
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
 }
 </style>

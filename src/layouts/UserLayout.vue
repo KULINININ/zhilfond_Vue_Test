@@ -18,7 +18,7 @@ import UserEmploeesView from '@/views/UserEmploeesView.vue'
 .user-layout {
   height: 80%;
   margin: 2.5rem auto 2.5rem auto;
-  width: 100%;
+  width: 90%;
   padding: 0 2.5rem 0 2.5rem;
 
   &__header {

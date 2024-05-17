@@ -91,10 +91,15 @@ watch(search, (value) => {
 
 .search-card {
   @include space-y-4;
+  min-height: 600px;
 
   &__header {
     font-weight: 700;
     color: var(--text-primary);
+  }
+
+  &__input {
+    width: 90%;
   }
 
   &__result {

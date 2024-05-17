@@ -45,22 +45,22 @@ const userDataLoading = computed(() => store.getters.userDataLoading)
   box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  min-width: 550px;
+  min-width: 650px;
   height: 100%;
   display: grid;
 
   &__search {
     padding: 1rem;
-    border-right-width: 2px;
+    border-right: 2px solid rgb(229 231 235);
     min-width: 200px;
     grid-column: span 1 / span 1;
-    border-color: rgb(229 231 235);
     background-color: var(--background-primary);
   }
 
   &__info {
     grid-column: span 2 / span 2;
     padding: 1rem;
+    min-width: 400px;
 
     &__card {
       &__loading-skeleton {

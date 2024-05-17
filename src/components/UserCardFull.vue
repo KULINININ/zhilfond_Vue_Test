@@ -68,6 +68,9 @@ const props = defineProps({
   &__image {
     padding: 1rem;
     grid-column: span 1 / span 1;
+    img {
+      width: 100%;
+    }
   }
 
   &__info {

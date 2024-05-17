@@ -33,7 +33,6 @@ const props = defineProps({
   border-radius: 0.5rem;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   cursor: pointer;
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   display: grid;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -47,7 +46,9 @@ const props = defineProps({
     grid-column: span 1 / span 1;
 
     img {
-      max-height: 90px;
+      width: 100%;
+      max-height: 80px;
+      max-width: 80px;
     }
   }
 

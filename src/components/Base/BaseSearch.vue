@@ -22,8 +22,10 @@ const emit = defineEmits(['update:value'])
 <style scoped lang="scss">
 .base-search {
   padding: 0.75rem;
-  border-width: 1px;
   border-radius: 0.5rem;
-  width: 100%;
+  border: 1px solid rgb(209 213 219);
+  // width: 100%;
+  font-family: inherit;
+  font-size: 100%;
 }
 </style>

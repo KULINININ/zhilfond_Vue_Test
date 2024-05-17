@@ -16,6 +16,18 @@
 </template>
 
 <style scoped lang="scss">
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @mixin space-y-2 {
   > * {
     margin-top: 0.5rem;
@@ -48,10 +60,14 @@
 .user-card {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   display: grid;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 
   &__image {
     padding: 1rem;
     grid-column: span 1 / span 1;
+    img {
+      width: 100%;
+    }
   }
 
   &__info {

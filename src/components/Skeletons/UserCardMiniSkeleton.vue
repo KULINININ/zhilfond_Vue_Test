@@ -11,6 +11,18 @@
 </template>
 
 <style scoped lang="scss">
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .user-card-mini {
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
@@ -24,6 +36,12 @@
     border-color: rgb(229 231 235);
     border-right-width: 2px;
     grid-column: span 1 / span 1;
+
+    img {
+      width: 100%;
+      max-height: 80px;
+      max-width: 80px;
+    }
   }
 
   &__info {
