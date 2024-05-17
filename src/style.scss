@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --text-primary: #333333;
+  --text-secondary: #6d6d6d;
+  --background-primary: #fdfdfd;
+}
+
 body {
   font-family: 'Montserrat', sans-serif;
 }
