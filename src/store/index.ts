@@ -1,7 +1,7 @@
 import { createStore, Store } from 'vuex'
 
-import { fetchUsersByPage, fetchUsersById, fetchUsersByParams } from '../api/api.ts'
-import { User } from '@types/user.ts'
+import { fetchUsersByPage, fetchUsersById, fetchUsersByParams } from '@/api/api'
+import { User } from '@/types/user'
 
 interface RootState {
   users: User[]
@@ -14,63 +14,67 @@ const store = createStore<RootState>({
   state() {
     return {
       users: [] as User[],
-      selctedUser: {} as User,
+      selectedUser: undefined as User,
       allUsersLoading: false as boolean,
       userDataLoading: false as boolean
     }
   },
   getters: {
-    users: (state: RootState) => state.users,
-    selectedUser: (state: RootState) => state.selectedUser,
-    allUsersLoading: (state: RootState) => state.allUsersLoading,
-    userDataLoading: (state: RootState) => state.userDataLoading
+    users: (state: RootState) => state.users as User[],
+    selectedUser: (state: RootState) => state.selectedUser as User,
+    allUsersLoading: (state: RootState) => state.allUsersLoading as boolean,
+    userDataLoading: (state: RootState) => state.userDataLoading as boolean
   },
-  mutations: {
-    // setSelectedUser(state: RootState, user: User) {
-    //   state.selectedUser = user
-    // }
-  },
+  mutations: {},
   actions: {
-    async getUsers() {
+    async getUsers(): Promise<void> {
       let page: number = 1
       this.state.allUsersLoading = true
-      let validResponse = true
+      let validResponse: boolean = true
+
       while (validResponse) {
         const fetchedUsers: User[] = await fetchUsersByPage(page)
         if (fetchedUsers.length > 0) {
           this.state.users.push(...fetchedUsers)
           page++
           this.state.allUsersLoading = false
-          console.log(this.state.users)
+          // console.log(this.state.users)
         } else {
           validResponse = false
         }
       }
     },
-    async getUsersByParams(filterParams: object) {
-      console.log('getUsersByParams', filterParams)
-      // let page: number = 1
-      // this.state.loading = true
-      // this.state.users = []
-      // while (this.state.loading) {
-      //   const fetchedUsers: User[] = await fetchUsersByParams(params, page)
-      //   if (fetchedUsers.length > 0) {
-      //     this.state.users.push(...fetchedUsers)
-      //     page++
-      //     console.log(this.state.users)
-      //   } else {
-      //     break
-      //   }
-      // }
-      // this.state.loading = false
-      // this.state.loading = true
-      // const fetchedUsers: User[] = await fetchUsersByParams(params)
-      // if (fetchedUsers.length > 0) {
-      //   this.state.users = fetchedUsers
-      // }
-      // this.state.loading = false
+    async getUsersByParams(
+      context: any,
+      payload: { ids: number[]; usernames: string[] }
+    ): Promise<void> {
+      this.state.selectedUser = undefined
+
+      let page: number = 1
+      this.state.allUsersLoading = true
+      let validResponse: boolean = true
+      this.state.users = []
+
+      const idsString: string = payload.ids.join('&id=')
+      const usernamesString: string = payload.usernames.join('&username=')
+
+      while (validResponse) {
+        const fetchedUsers: User[] = await fetchUsersByParams(
+          { ids: '&id=' + idsString, usernames: '&id=' + usernamesString },
+          page
+        )
+        if (fetchedUsers.length > 0) {
+          this.state.users.push(...fetchedUsers)
+          page++
+          this.state.allUsersLoading = false
+        } else {
+          validResponse = false
+          this.state.allUsersLoading = false
+        }
+      }
+      console.log(this.state.users)
     },
-    async getUsersById(context: any, payload: { id: number }) {
+    async getUsersById(context: any, payload: { id: number }): Promise<void> {
       this.state.userDataLoading = true
       const fetchedUser: User = await fetchUsersById(payload.id)
       this.state.selectedUser = fetchedUser
