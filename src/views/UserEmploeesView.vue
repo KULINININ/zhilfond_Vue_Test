@@ -5,7 +5,7 @@
     </div>
     <div class="employees-view__info">
       <div class="employees-view__info__card" v-if="selectedUser && !userDataLoading">
-        <UserCardFull :user="selectedUser" />
+        <RouterView />
       </div>
       <div class="employees-view__info__card__loading-skeleton" v-else-if="userDataLoading">
         <UserCardFullSkeleton />

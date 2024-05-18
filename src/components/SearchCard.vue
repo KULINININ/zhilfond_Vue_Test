@@ -31,12 +31,17 @@ import LoadingIcon from '@/assets/icons/LoadingIcon.vue'
 import { useStore } from 'vuex'
 import { computed, ref, watch } from 'vue'
 import { debounce } from 'lodash'
+import { useRouter } from 'vue-router'
 
 import type { User } from '@/types/user.ts'
 
 const debouncedUsersFilter: (searchString: string) => void = debounce((searchString: string) => {
   const ids: number[] = []
   const usernames: string[] = []
+
+  if (searchString.length === 0) {
+    router.push({ name: 'search' })
+  }
 
   searchString.split(',').forEach((param) => {
     const trimmedParam: string = param.trim()
@@ -57,6 +62,8 @@ const debouncedUsersFilter: (searchString: string) => void = debounce((searchStr
 
 const store = useStore()
 
+const router = useRouter()
+
 const search = ref('')
 
 const users = computed(() => store.getters.users)
@@ -65,6 +72,7 @@ const selectedUser = computed<User>(() => store.getters.selectedUser)
 const allUsersLoading = computed(() => store.getters.allUsersLoading)
 
 const doSelectUser: (user: User) => void = (user: User) => {
+  router.push({ name: 'user', params: { id: user.id } })
   store.dispatch('getUsersById', { id: user.id })
 }
 

@@ -24,11 +24,12 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-  user: {
-    type: Object
-  }
-})
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+
+const store = useStore()
+
+const user = computed(() => store.state.selectedUser)
 </script>
 
 <style scoped lang="scss">

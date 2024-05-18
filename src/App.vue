@@ -1,11 +1,11 @@
 <template>
   <div class="app-wrapper">
-    <UserLayout />
+    <RouterView />
   </div>
 </template>
 
 <script setup lang="ts">
-import UserLayout from '@layouts/UserLayout.vue'
+import { RouterView } from 'vue-router'
 </script>
 
 <style scoped lang="scss">
