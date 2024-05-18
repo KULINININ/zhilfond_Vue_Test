@@ -1,5 +1,5 @@
 <template>
-  <div class="user-card-mini" :class="active ? 'bg-[#f5f5f5]' : ''">
+  <div :class="['user-card-mini', { 'user-card-mini--active': active }]">
     <div class="user-card-mini__image">
       <img src="https://via.placeholder.com/200/92c952" alt="user" />
     </div>
@@ -38,6 +38,10 @@ const props = defineProps({
   text-overflow: ellipsis;
   white-space: nowrap;
   max-height: 120px;
+
+  &--active {
+    background-color: #f5f5f5;
+  }
 
   &__image {
     padding: 1rem;
