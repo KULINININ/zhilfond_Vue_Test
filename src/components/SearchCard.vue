@@ -34,7 +34,7 @@ import { debounce } from 'lodash'
 
 import type { User } from '@/types/user.ts'
 
-const debouncedUsersFilter = debounce((searchString) => {
+const debouncedUsersFilter: (searchString: string) => void = debounce((searchString: string) => {
   const ids: number[] = []
   const usernames: string[] = []
 
@@ -64,7 +64,7 @@ const users = computed(() => store.getters.users)
 const selectedUser = computed<User>(() => store.getters.selectedUser)
 const allUsersLoading = computed(() => store.getters.allUsersLoading)
 
-const doSelectUser = (user) => {
+const doSelectUser: (user: User) => void = (user: User) => {
   store.dispatch('getUsersById', { id: user.id })
 }
 
