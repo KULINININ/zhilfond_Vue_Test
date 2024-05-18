@@ -59,15 +59,18 @@ const store = createStore<RootState>({
       let validResponse: boolean = true
       this.state.users = []
 
-      const idsString: string = payload.ids.join('&id=')
-      const usernamesString: string = payload.usernames.join('&username=')
+      let params = ''
+
+      // Если есть usernames, то поиск будет по ним, если нет, то по ids
+      if (payload.usernames.length > 0) {
+        params = '&username=' + payload.usernames.join('&username=')
+      } else {
+        params = '&id=' + payload.ids.join('&id=')
+      }
 
       try {
         while (validResponse) {
-          const fetchedUsers: User[] = await fetchUsersByParams(
-            { ids: '&id=' + idsString, usernames: '&id=' + usernamesString },
-            page
-          )
+          const fetchedUsers: User[] = await fetchUsersByParams(params, page)
           if (fetchedUsers.length > 0) {
             this.state.users.push(...fetchedUsers)
             page++
