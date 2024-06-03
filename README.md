@@ -4,6 +4,17 @@
 
 Тестовое задание для Жилфонд
 
+Сделал две ветки: SCSS - сделано на SCSS; main - сделано на Tailwind.
+Искать можно по id (1,2,3,4) или по username (Bret, Antonette), если будет введено 1, 2, Bret, Antonette, то поиск будет происходить только по username.
+Запросы на https://jsonplaceholder.typicode.com идут постранично с ограничением на 3 элемента.
+Индикация ошибок при работе с API реализована с использованием vue-toaster.
+Использовал TypeScript.
+Задеплоено на gh-pages.
+SPA сделано на Vuex с children компонентами.
+Во время загрузки данных сделал отображение skeleton и лоадера.
+
+Чтобы запросы на API не спамили использовал lodash/debouncer
+
 # zhilfond
 
 This template should help get you started developing with Vue 3 in Vite.
